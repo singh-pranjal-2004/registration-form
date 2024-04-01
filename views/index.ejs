@@ -137,6 +137,16 @@
             $("#form1").submit((event) => {
                 event.preventDefault();
 
+                // Validate email format
+                let email = $("#email").val();
+                let emailPattern = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[A-Za-z0-9](-*\.?[A-Za-z0-9])*\.[A-Za-z](-?[A-Za-z0-9])+$/;
+                if (!emailPattern.test(email)) {
+                    $("#check").text("Please enter a valid email address.");
+                    return;
+                } else {
+                    $("#emailError").text(""); // Clear error message
+                }
+
                 $.ajax({
                     type: 'POST',
                     url: '/',
@@ -170,9 +180,9 @@
         </div>
         <div class="form-group">
             <form id="form1" method="post">
-                <input type="text" name="email" placeholder="E-mail" required=""
-                    pattern="[-!#$%&'*+\/0-9=?ก-๙A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?ก-๙A-Z^_a-z`{|}~])*@[ก-๙a-zA-Z0-9](-*\.?[ก-๙a-zA-Z0-9])*\.[ก-๙a-zA-Z](-?[ก-๙a-zA-Z0-9])+$"
+                <input type="text" id="email" name="email" placeholder="E-mail" required=""
                     class="form-control"> <br />
+                <div id="emailError" class="mssg bg-danger"></div> <!-- Display email error message here -->
                 <input type="text" name="username" placeholder="Username" required="" class="form-control"><br />
                 <input type="password" name="password" placeholder="Password" required="" class="form-control"><br />
                 <input type="password" name="passwordConf" placeholder="Confirm Password" required=""
@@ -189,6 +199,7 @@
         </div>
         <div id="LangTable"><a href="/login" id="aa"></a></div>
     </div>
+
 </body>
 
 </html>
